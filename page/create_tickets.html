@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание заявки</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Справочники
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./references.html">Посмотреть справочники</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="./references.html">Создать справочник</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Заявки
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./tickets.html">Посмотреть заявки</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item active" href="./create_tickets.html">Создать заявку</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Пользователи
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./users.html">Открыть пользователей</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="./create_user.html">Создать пользователя</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./authorization.html">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="d-flex ms-3 mt-3 me-3 flex-column">
+        <div class="row">
+            <h2 class="col-12">Приветствую, <span>korablinova</span></h2>
+        </div>
+        <div class="row">
+            <h2 class="col-12">Создать заявку</h2>
+        </div>
+        <div class="d-flex">
+            <div class="ms-3">
+                <h4>Новая заявка</h4>
+                <hr>
+                <form class="was-validated">
+                    <div class="mb-2">
+                        <label for="validationTextarea" class="form-label fw-bold">Наименование заявки</label>
+                        <input class="form-control" id="validationTextarea" placeholder="1с" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста, введите сообщение в текстовое поле.
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="validationTextarea" class="form-label fw-bold">Описание</label>
+                        <input class="form-control" id="validationTextarea"
+                            placeholder="В программе 1С отсутствует подключение к БД" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста, введите сообщение в текстовое поле.
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="validationTextarea" class="form-label fw-bold">Приоритет</label>
+                        <select class="form-select" id="validationTextarea"
+                            placeholder="Обязательный пример текстового поля" required>
+                            <option value="1">Отдел Бухгалтерии и Учета</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Пожалуйста, введите сообщение в текстовое поле.
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="validationTextarea" class="form-label fw-bold">Кабинет</label>
+                        <input class="form-control" id="validationTextarea" placeholder="202" required />
+                        <div class="invalid-feedback">
+                            Пожалуйста, введите сообщение в текстовое поле.
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="validationTextarea" class="form-label fw-bold">Категория</label>
+                        <select class="form-select" id="validationTextarea" placeholder="1С бухгалтерия" required>
+                            <option value="1">Отдел Бухгалтерии и Учета</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Пожалуйста, введите сообщение в текстовое поле.
+                        </div>
+                    </div>
+                </form>
+                <div class="mb-2">
+                    <label for="validationTextarea" class="form-label fw-bold">Файл с ошибкой</label>
+                    <input class="form-control" id="validationTextarea" type="file" />
+                </div>
+                <div class="mb-2">
+                    <label for="validationTextarea" class="form-label fw-bold">Комментарий</label>
+                    <textarea class=" form-control" id="validationTextarea"
+                        placeholder="Просьба решить в кратчайшие сроки"></textarea>
+                </div>
+                <button class="btn btn-primary text-white mt-3">
+                    Добавить
+                </button>
+            </div>
+        </div>
+    </section>
+    <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+</html>

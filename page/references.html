@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Техническое обслуживание</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        h1 {
+            font-size: 50px;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        article {
+            font: 20px Helvetica, sans-serif;
+            color: #333;
+            display: block;
+            text-align: left;
+            width: 650px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Справочники
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./references.html">Посмотреть справочники</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="./references.html">Создать справочник</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Заявки
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./tickets.html">Посмотреть заявки</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="./create_tickets.html">Создать заявку</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Пользователи
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./users.html">Открыть пользователей</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="./create_user.html">Создать пользователя</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./authorization.html">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <article class="vh-100 d-flex flex-column align-items-center justify-content-center">
+        <h1>Данная страница скоро откроется!</h1>
+        <div>
+            <p>
+                В настоящий момент на сайте проводятся работы по обслуживанию.
+                Пожалуйста, зайдите через некоторое время. Приносим извинения за неудобства.
+            </p>
+            <p>&mdash; Ваш <span id="site-name">сайт</span></p>
+        </div>
+    </article>
+    <script type="text/javascript">
+        var host = window.location.hostname;
+        var site = document.getElementById('site-name');
+        site.innerHTML = host;
+    </script>
+    <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+</html>

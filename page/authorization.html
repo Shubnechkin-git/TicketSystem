@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+
+<body style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div>
+        <div class="row">
+            <h2 class="text-uppercase fw-bold">Авторизация</h2>
+        </div>
+        <hr />
+        <div class="row row-gap-4 pt-2 d-flex flex-column">
+            <input class="p-2" type="text" placeholder="Логин" />
+            <input class="p-2" type="password" placeholder="Пароль" />
+            <div class="d-flex flex-row align-items-center justify-content-center column-gap-2">
+                <span>Запомнить?</span>
+                <input type="checkbox" name="" id="">
+                <a class="btn btn-info text-white" href="./users.html">Войти</a>
+            </div>
+        </div>
+    </div>
+    <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+
+<style>
+    input {
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        border: none;
+    }
+</style>
+
+</html>
