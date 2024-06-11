@@ -8,7 +8,9 @@ const fs = require("fs");
 const uuid = require("uuid");
 
 const pool = mysql2.createPool(
-  !process.env.MYSQL_ADDON_URI && "mysql://root:root@localhost:3306/solodyankin"
+  !process.env.MYSQL_ADDON_URI
+    ? "mysql://root:root@localhost:3306/solodyankin"
+    : process.env.MYSQL_ADDON_URI
 );
 
 app.use(bodyParser.json({ limit: "100mb" }));
@@ -37,7 +39,7 @@ app.get("/api/checkSession", (req, res) => {
           `SELECT * FROM sessions WHERE session = "${session}"`,
           (error, result) => {
             console.log(result);
-            if (error) {git a
+            if (error) {
               res.status(500).send({ error, message: error.sqlMessage });
             } else if (result) {
               result.length > 0
