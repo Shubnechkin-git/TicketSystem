@@ -5,387 +5,420 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заявки</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Переключатель навигации">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Справочники
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="./references.html">Посмотреть справочники</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="./references.html">Создать справочник</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Заявки
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item active" href="./tickets.html">Посмотреть заявки</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="./create_tickets.html">Создать заявку</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Пользователи
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="./users.html">Открыть пользователей</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="./create_user.html">Создать пользователя</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./authorization.html">Выход</a>
-                    </li>
-                </ul>
+    <div class="d-none" id="content">
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Переключатель навигации">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Справочники
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./references">Посмотреть справочники</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="./references">Создать справочник</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Заявки
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="./tickets">Посмотреть заявки</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="./create_tickets">Создать заявку</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Пользователи
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="./users">Открыть пользователей</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="./create_user">Создать пользователя</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./authorization"
+                                onclick="localStorage.removeItem('session')">Выход</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <section class="ms-3 me-3 mt-3">
-        <div class="row">
-            <h2>Меню диспетчера</h2>
+        <section class="ms-3 me-3 mt-3">
+            <div class="row">
+                <h2>Меню диспетчера</h2>
+            </div>
+            <div class="row">
+                <h2>Список заявок</h2>
+            </div>
+            <div class="row"><span>Всего нераспределенных заявок:<span>2</span></span></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Приоритет</th>
+                        <th scope="col">Файл с ошибкой</th>
+                        <th scope="col">Время создания</th>
+                        <th scope="col">Инициатор заявки</th>
+                        <th scope="col">Наименование инцидента</th>
+                        <th scope="col">Описание заявки</th>
+                        <th scope="col">Исполнитель</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: pointer; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="Семенов">Семенов Александр Аркадьевич</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: pointer; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="Семенов">Семенов Александр Аркадьевич</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="Семенов">Семенов Александр Аркадьевич</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="ms-3 me-3 mt-3">
+            <div class="row">
+                <h2>Меню исполнителя</h2>
+            </div>
+            <div class="row">
+                <h2>Изменить статус заявки</h2>
+            </div>
+            <div class="row"><span>Всего заявок:<span>2</span></span></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Приоритет</th>
+                        <th scope="col">Файл с ошибкой</th>
+                        <th scope="col">Время создания</th>
+                        <th scope="col">Инициатор заявки</th>
+                        <th scope="col">Наименование инцидента</th>
+                        <th scope="col">Описание заявки</th>
+                        <th scope="col">Новый статус</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: pointer; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="" selected disabled hidden>Выберете статус</option>
+                                <option value="waiting">В ожидание</option>
+                                <option value="processing">В обработке</option>
+                                <option value="rejected">Отклонена</option>
+                                <option value="resolve">Решена</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" style="color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: pointer; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="" selected disabled hidden>Выберете статус</option>
+                                <option value="waiting">В ожидание</option>
+                                <option value="processing">В обработке</option>
+                                <option value="rejected">Отклонена</option>
+                                <option value="resolve">Решена</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>
+                        </td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="" selected disabled hidden>Выберете статус</option>
+                                <option value="waiting">В ожидание</option>
+                                <option value="processing">В обработке</option>
+                                <option value="rejected">Отклонена</option>
+                                <option value="resolve">Решена</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg></td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-archive" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                            </svg></td>
+                        <td>15.01.2020 00:03:27</td>
+                        <td>Филатов Олег Васильевич</td>
+                        <td>Ошибка</td>
+                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                        <td><select class="form-select">
+                                <option value="" selected disabled hidden>Выберете статус</option>
+                                <option value="waiting">В ожидание</option>
+                                <option value="processing">В обработке</option>
+                                <option value="rejected">Отклонена</option>
+                                <option value="resolve">Решена</option>
+                            </select></td>
+                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="spinner-border" id="spinner" role="status">
+            <span class="visually-hidden">Загрузка...</span>
         </div>
-        <div class="row">
-            <h2>Список заявок</h2>
-        </div>
-        <div class="row"><span>Всего нераспределенных заявок:<span>2</span></span></div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Приоритет</th>
-                    <th scope="col">Файл с ошибкой</th>
-                    <th scope="col">Время создания</th>
-                    <th scope="col">Инициатор заявки</th>
-                    <th scope="col">Наименование инцидента</th>
-                    <th scope="col">Описание заявки</th>
-                    <th scope="col">Исполнитель</th>
-                    <th scope="col">Действие</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                            <path
-                                d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: pointer; color:#c0c0be"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="Семенов">Семенов Александр Аркадьевич</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                            <path
-                                d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: pointer; color:#ffb245"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="Семенов">Семенов Александр Аркадьевич</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                            <path
-                                d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="Семенов">Семенов Александр Аркадьевич</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    <section class="ms-3 me-3 mt-3">
-        <div class="row">
-            <h2>Меню исполнителя</h2>
-        </div>
-        <div class="row">
-            <h2>Изменить статус заявки</h2>
-        </div>
-        <div class="row"><span>Всего заявок:<span>2</span></span></div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Приоритет</th>
-                    <th scope="col">Файл с ошибкой</th>
-                    <th scope="col">Время создания</th>
-                    <th scope="col">Инициатор заявки</th>
-                    <th scope="col">Наименование инцидента</th>
-                    <th scope="col">Описание заявки</th>
-                    <th scope="col">Новый статус</th>
-                    <th scope="col">Действие</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                            <path
-                                d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: pointer; color:#c0c0be"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="" selected disabled hidden>Выберете статус</option>
-                            <option value="waiting">В ожидание</option>
-                            <option value="processing">В обработке</option>
-                            <option value="rejected">Отклонена</option>
-                            <option value="resolve">Решена</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" style="color: #c0c0be;" data-bs-title="Задача в обработке"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: pointer; color:#ffb245"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="" selected disabled hidden>Выберете статус</option>
-                            <option value="waiting">В ожидание</option>
-                            <option value="processing">В обработке</option>
-                            <option value="rejected">Отклонена</option>
-                            <option value="resolve">Решена</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="color: #ff501b;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-ban-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
-                        </svg>
-                    </td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="" selected disabled hidden>Выберете статус</option>
-                            <option value="waiting">В ожидание</option>
-                            <option value="processing">В обработке</option>
-                            <option value="rejected">Отклонена</option>
-                            <option value="resolve">Решена</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="color:#90d81a"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-check-square-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-circle-fill" viewBox="0 0 16 16">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg></td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-archive" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg></td>
-                    <td>15.01.2020 00:03:27</td>
-                    <td>Филатов Олег Васильевич</td>
-                    <td>Ошибка</td>
-                    <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                            style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                            height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                        </svg></td>
-                    <td><select class="form-select">
-                            <option value="" selected disabled hidden>Выберете статус</option>
-                            <option value="waiting">В ожидание</option>
-                            <option value="processing">В обработке</option>
-                            <option value="rejected">Отклонена</option>
-                            <option value="resolve">Решена</option>
-                        </select></td>
-                    <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    </div>
+    <script>
+        window.onload = () => {
+            const content = document.getElementById("content");
+            const spinner = document.getElementById("spinner");
+            axios.get("/api/checkSession", {
+                params: {
+                    session: localStorage.getItem("session")
+                }
+            }).then((response) => {
+                spinner.classList.toggle('d-none');
+                content.classList.toggle('d-none');
+            }).catch((error) => {
+                document.location.href = '/';
+                // spinner.classList.toggle('d-none');
+                content.classList.toggle('d-none');
+                content.classList.toggle('d-none');
+                console.log(error);
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
