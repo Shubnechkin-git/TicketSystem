@@ -78,8 +78,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./authorization"
-                                onclick="localStorage.removeItem('session')">Выход</a>
+                            <a class="nav-link" id="exitBtn">Выход</a>
                         </li>
                     </ul>
                 </div>
@@ -101,6 +100,21 @@
             <span class="visually-hidden">Загрузка...</span>
         </div>
     </div>
+    <script>
+        document.getElementById("exitBtn").addEventListener('click', () => {
+            axios.delete("/api/deleteSession", {
+                    params: {
+                        session: localStorage.getItem("session")
+                    }
+                })
+                .then((result) => {
+                    localStorage.removeItem('session');
+                    document.location.href = "/authorization";
+                }).catch((err) => {
+                    console.log(err);
+                });
+        });
+    </script>
     <script>
         window.onload = () => {
             const content = document.getElementById("content");
