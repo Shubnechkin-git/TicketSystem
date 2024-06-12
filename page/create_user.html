@@ -106,7 +106,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Отдел</label>
-                            <select class="form-select" id="validationTextarea"
+                            <select class="form-select" id="department"
                                 placeholder="Обязательный пример текстового поля" required>
                                 <option value="1">Отдел Бухгалтерии и Учета</option>
                             </select>
@@ -116,8 +116,8 @@
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Статус</label>
-                            <select class="form-select" id="validationTextarea"
-                                placeholder="Обязательный пример текстового поля" required>
+                            <select class="form-select" id="post" placeholder="Обязательный пример текстового поля"
+                                required>
                                 <option value="1">Администратор</option>
                             </select>
                             <div class="invalid-feedback">
@@ -130,6 +130,7 @@
                     </form>
                 </div>
             </div>
+            <span id="message" class="mt-2 ms-3 me-3"></span>
         </section>
     </div>
     <div class="vh-100 d-flex justify-content-center align-items-center">
@@ -153,6 +154,37 @@
         });
     </script>
     <script>
+        const message = document.getElementById("message");
+
+        const loadSelectedValues = () => {
+            const departmentSelect = document.getElementById("department");
+            const postSelect = document.getElementById("post");
+
+            departmentSelect.innerHTML = "";
+            postSelect.innerHTML = "";
+
+            axios.get("/api/users/parameters").then((response) => {
+                console.log(response);
+                response.data.departments.forEach(element => {
+                    console.log(element);
+                    departmentSelect.innerHTML += `
+                        <option value="${element.departmentsId}">
+                            ${element.department}
+                        </option>`;
+                });
+                response.data.roles.forEach(element => {
+                    console.log(element);
+                    postSelect.innerHTML += `
+                        <option value="${element.roleId}">
+                            ${element.role}
+                        </option>`;
+                });
+            }).catch((error) => {
+                message.classList.add('text-danger');
+                message.innerHTML = error.response.data.message;
+            });
+        }
+
         window.onload = () => {
             const content = document.getElementById("content");
             const spinner = document.getElementById("spinner");
@@ -163,6 +195,7 @@
             }).then((response) => {
                 spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
+                loadSelectedValues();
             }).catch((error) => {
                 document.location.href = '/';
                 // spinner.classList.toggle('d-none');

@@ -117,6 +117,72 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+app.get("/api/users", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `SELECT users.id, users.name, users.login, users.password, post.name AS 'post', departments.name AS "department", roles.name AS "role" 
+        FROM users JOIN departments ON users.departmentId = departments.id JOIN roles ON users.roleId = roles.id JOIN post ON users.postId = post.id`,
+        (error, result) => {
+          if (error) res.status(500).json({ err, message: error.sqlMessage });
+          else if (result)
+            result.length > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Пользователи получены!" })
+              : res.status(400).json({ result, message: "Нет пользователей!" });
+        }
+      );
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+      console.log(err);
+    }
+    connection.release();
+  });
+});
+
+app.get("/api/users/parameters", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      departments = connection.query(
+        `SELECT departments.id AS "departmentsId", departments.name AS "department" FROM departments`,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result) {
+            result.length > 0
+              ? connection.query(
+                  `SELECT roles.id AS "roleId", roles.name AS "role" FROM roles `,
+                  (errror, roles) => {
+                    if (errror)
+                      res
+                        .status(500)
+                        .json({ errror, message: errror.sqlMessage });
+                    else if (roles)
+                      roles.length > 0
+                        ? res.status(200).json({
+                            departments: result,
+                            roles: roles,
+                            message: "Отделы и роли успешно получены!",
+                          })
+                        : res.status(400).json({
+                            departments: result,
+                            roles: roles,
+                            message: "Отделы успешно получены, но ролей нет!",
+                          });
+                  }
+                )
+              : res.status(400).json({ result, message: "Отделов нет!" });
+          }
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+      console.log(err);
+    }
+  });
+});
+
 app.use((req, res) => {
   sendHTML(req.url, res);
 });

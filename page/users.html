@@ -107,7 +107,7 @@
                         <th scope="col">Действие</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="users">
                     <tr>
                         <td>Филатов Олег Васильевич</td>
                         <td>2</td>
@@ -146,9 +146,36 @@
         </div>
     </div>
     <script>
+        const loadTables = () => {
+            const tableRow = document.getElementById("users");
+
+            tableRow.innerHTML = "";
+
+            axios.get("/api/users").then((response) => {
+                response.data.result.forEach(element => {
+                    console.log(element);
+                    tableRow.innerHTML += `                    
+                        <tr id="${element.id}">
+                            <td>${element.name}</td>
+                            <td>${element.login}</td>
+                            <td>${element.password}</td>
+                            <td>${element.post}</td>
+                            <td>${element.department}</td>
+                            <td>${element.role}</td>
+                            <td class="d-flex column-gap-2"><span class="text-info"
+                                style="cursor: pointer;">Редактировать</span><span>|</span><span class="text-info"
+                                style="cursor: pointer;">Удалить</span></td>
+                    </tr>`;
+                });
+            }).catch((error) => {
+                tableRow.innerHTML += error.response.data.message;
+            });
+        }
+
         window.onload = () => {
             const content = document.getElementById("content");
             const spinner = document.getElementById("spinner");
+
             axios.get("/api/checkSession", {
                 params: {
                     session: localStorage.getItem("session")
@@ -156,6 +183,7 @@
             }).then((response) => {
                 spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
+                loadTables();
             }).catch((error) => {
                 document.location.href = '/';
                 // spinner.classList.toggle('d-none');
