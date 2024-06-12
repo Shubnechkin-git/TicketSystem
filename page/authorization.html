@@ -75,7 +75,7 @@
                     message.classList.remove('text-danger');
                     message.classList.add('text-success');
                     localStorage.setItem('session', res.data.session);
-                    document.location.href = '/users';
+                    document.location.href = '/tickets';
                     console.log(res);
                 }).catch(err => {
                     console.log(err.response);
