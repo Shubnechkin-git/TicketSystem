@@ -99,7 +99,8 @@
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Должность</label>
-                            <input class="form-control" id="validationTextarea" placeholder="Бухгалтер" required />
+                            <select class="form-select" id="post" placeholder="Бухгалтер" required>
+                            </select>
                             <div class="invalid-feedback">
                                 Пожалуйста, введите сообщение в текстовое поле.
                             </div>
@@ -116,7 +117,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Статус</label>
-                            <select class="form-select" id="post" placeholder="Обязательный пример текстового поля"
+                            <select class="form-select" id="role" placeholder="Обязательный пример текстового поля"
                                 required>
                                 <option value="1">Администратор</option>
                             </select>
@@ -159,9 +160,11 @@
         const loadSelectedValues = () => {
             const departmentSelect = document.getElementById("department");
             const postSelect = document.getElementById("post");
+            const roleSelect = document.getElementById("role");
 
             departmentSelect.innerHTML = "";
             postSelect.innerHTML = "";
+            roleSelect.innerHTML = "";
 
             axios.get("/api/users/parameters").then((response) => {
                 console.log(response);
@@ -174,16 +177,44 @@
                 });
                 response.data.roles.forEach(element => {
                     console.log(element);
-                    postSelect.innerHTML += `
+                    roleSelect.innerHTML += `
                         <option value="${element.roleId}">
                             ${element.role}
                         </option>`;
                 });
+                response.data.posts.forEach(element => {
+                    console.log(element);
+                    postSelect.innerHTML += `
+                        <option value="${element.postId}">
+                            ${element.role}
+                        </option>`;
+                });
             }).catch((error) => {
+                message.classList.remove('text-success');
                 message.classList.add('text-danger');
                 message.innerHTML = error.response.data.message;
             });
         }
+
+        addEventListener('submit', (e) => {
+            e.preventDefault();
+            axios.post("/api/users/create", {
+                name: e.target[0].value,
+                login: e.target[1].value,
+                password: e.target[2].value,
+                post: e.target[3].value,
+                department: e.target[4].value,
+                role: e.target[5].value
+            }).then((response) => {
+                message.classList.remove('text-danger');
+                message.classList.add('text-success');
+                message.innerHTML = response.data.message;
+            }).catch((error) => {
+                message.classList.remove('text-success');
+                message.classList.add('text-danger');
+                message.innerHTML = error.response.data.message;
+            });
+        })
 
         window.onload = () => {
             const content = document.getElementById("content");

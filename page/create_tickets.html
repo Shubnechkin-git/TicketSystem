@@ -68,7 +68,7 @@
         </nav>
         <section class="d-flex ms-3 mt-3 me-3 flex-column">
             <div class="row">
-                <h2 class="col-12">Приветствую, <span>korablinova</span></h2>
+                <h2 class="col-12">Приветствую, <span id="name"></span></h2>
             </div>
             <div class="row">
                 <h2 class="col-12">Создать заявку</h2>
@@ -167,6 +167,7 @@
             }).then((response) => {
                 spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
+                document.getElementById("name").innerText = response.data.result[0].name;
             }).catch((error) => {
                 document.location.href = '/';
                 // spinner.classList.toggle('d-none');

@@ -69,7 +69,7 @@
 
         <section class="ms-3 me-3 mt-3 mb-3">
             <div class="row">
-                <h2 class="col-12">Меню администратора: вы вошли как <span>суперадминистратор</span></h2>
+                <h2 class="col-12">Меню <span id="role"></span>: вы вошли как <span id="name"></span></h2>
             </div>
             <div class="d-flex column-gap-3 align-items-center">
                 <div class="d-flex align-items-center">
@@ -145,6 +145,26 @@
             <span class="visually-hidden">Загрузка...</span>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Вы действительно хотите удалить этого пользователя?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteBtn">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const loadTables = () => {
             const tableRow = document.getElementById("users");
@@ -164,13 +184,33 @@
                             <td>${element.role}</td>
                             <td class="d-flex column-gap-2"><span class="text-info"
                                 style="cursor: pointer;">Редактировать</span><span>|</span><span class="text-info"
-                                style="cursor: pointer;">Удалить</span></td>
+                                style="cursor: pointer;" data-bs-toggle="modal" onclick="showModal(${element.id}, '${element.name}')" data-bs-target="#deleteModal">Удалить</span></td>
                     </tr>`;
                 });
             }).catch((error) => {
                 tableRow.innerHTML += error.response.data.message;
             });
         }
+
+        const deleteBtn = document.getElementById("deleteBtn");
+
+        const showModal = (id, name) => {
+            const modal = document.getElementById("deleteModalLabel");
+            modal.innerText = name;
+            deleteBtn.setAttribute('user_id', id);
+        }
+
+        deleteBtn.addEventListener("click", (e) => {
+            axios.delete("/api/users/delete", {
+                params: {
+                    id: e.target.attributes[4].value,
+                }
+            }).then((response) => {
+                loadTables();
+            }).catch((error) => {
+                alert(error.response.data.message);
+            });
+        });
 
         window.onload = () => {
             const content = document.getElementById("content");
@@ -183,6 +223,21 @@
             }).then((response) => {
                 spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
+                document.getElementById('name').innerText = response.data.result[0].name;
+                switch (response.data.result[0].role) {
+                    case 'администратор':
+                        document.getElementById('role').innerText = 'администратора';
+                        break;
+                    case 'исполнитель':
+                        document.getElementById('role').innerText = 'исполнителя';
+                        break;
+                    case 'оператор':
+                        document.getElementById('role').innerText = 'оператора';
+                        break;
+                    case 'пользователь':
+                        document.getElementById('role').innerText = 'пользователя';
+                        break;
+                }
                 loadTables();
             }).catch((error) => {
                 document.location.href = '/';

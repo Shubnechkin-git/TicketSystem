@@ -36,14 +36,19 @@ app.get("/api/checkSession", (req, res) => {
     pool.getConnection((err, connection) => {
       if (connection) {
         connection.query(
-          `SELECT * FROM sessions WHERE session = "${session}"`,
+          `SELECT users.name, roles.name AS "role" FROM users 
+          JOIN sessions ON users.id = sessions.userId
+          JOIN roles ON roles.id = users.roleId WHERE sessions.session = "${session}"`,
           (error, result) => {
             console.log(result);
             if (error) {
               res.status(500).send({ error, message: error.sqlMessage });
             } else if (result) {
+              console.log(result);
               result.length > 0
-                ? res.status(200).send({ message: "Welcome!" })
+                ? res
+                    .status(200)
+                    .send({ result, message: `Welcome, ${result[0].name}!` })
                 : res.status(400).send({ message: "Сессия не существует!" });
             }
           }
@@ -133,11 +138,11 @@ app.get("/api/users", (req, res) => {
               : res.status(400).json({ result, message: "Нет пользователей!" });
         }
       );
+      connection.release();
     } else if (err) {
       res.status(500).json({ err, message: err.message });
       console.log(err);
     }
-    connection.release();
   });
 });
 
@@ -151,7 +156,7 @@ app.get("/api/users/parameters", (req, res) => {
           else if (result) {
             result.length > 0
               ? connection.query(
-                  `SELECT roles.id AS "roleId", roles.name AS "role" FROM roles `,
+                  `SELECT roles.id AS "roleId", roles.name AS "role" FROM roles  `,
                   (errror, roles) => {
                     if (errror)
                       res
@@ -159,11 +164,32 @@ app.get("/api/users/parameters", (req, res) => {
                         .json({ errror, message: errror.sqlMessage });
                     else if (roles)
                       roles.length > 0
-                        ? res.status(200).json({
-                            departments: result,
-                            roles: roles,
-                            message: "Отделы и роли успешно получены!",
-                          })
+                        ? connection.query(
+                            `SELECT post.id AS "postId", post.name AS "role" FROM post`,
+                            (isError, posts) => {
+                              if (isError)
+                                res.status(500).json({
+                                  isError,
+                                  message: isError.sqlMessage,
+                                });
+                              else if (posts) {
+                                posts.length > 0
+                                  ? res.status(200).json({
+                                      departments: result,
+                                      roles: roles,
+                                      posts: posts,
+                                      message:
+                                        "Отделы, роли и должности успешно получены!",
+                                    })
+                                  : res.status(400).json({
+                                      departments: result,
+                                      roles: roles,
+                                      message:
+                                        "Отделы, роли успешно получены, но должностей нет!",
+                                    });
+                              }
+                            }
+                          )
                         : res.status(400).json({
                             departments: result,
                             roles: roles,
@@ -179,6 +205,55 @@ app.get("/api/users/parameters", (req, res) => {
     } else if (err) {
       res.status(500).json({ err, message: err.message });
       console.log(err);
+    }
+  });
+});
+
+app.post("/api/users/create", (req, res) => {
+  console.log(req.body);
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `INSERT INTO users (name, login, password, departmentId, roleId, postId) 
+        VALUES("${req.body.name}", "${req.body.login}", "${req.body.password}", "${req.body.department}", "${req.body.role}", "${req.body.post}")`,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result)
+            res.status(200).json({
+              message: `Пользователь ${req.body.login} успешно добавлен!`,
+            });
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+    }
+  });
+});
+
+app.delete("/api/users/delete", (req, res) => {
+  if (!req.query.id) {
+    res.status(404).json({ message: "Id обязательно!" });
+    return;
+  }
+
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `DELETE FROM users WHERE id = ${req.query.id}`,
+        (error, result) => {
+          if (error) {
+            res.status(500).json({ error, message: error.sqlMessage });
+          } else if (result) {
+            res
+              .status(200)
+              .json({ result, message: "Пользователь успешно удален!" });
+          }
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
     }
   });
 });
