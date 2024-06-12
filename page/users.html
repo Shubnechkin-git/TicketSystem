@@ -20,7 +20,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="referencesLink">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Справочники
@@ -33,7 +33,7 @@
                                 <li><a class="dropdown-item" href="./references">Создать справочник</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="ticketsLink">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Заявки
@@ -46,7 +46,7 @@
                                 <li><a class="dropdown-item" href="./create_tickets">Создать заявку</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="usersLink">
                             <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Пользователи
@@ -79,7 +79,7 @@
                     </select>
                 </div>
                 <div class="d-flex align-items-center">
-                    <span class="me-1">Стутус:</span>
+                    <span class="me-1">Статус:</span>
                     <select class="form-select">
                         <option value="all">Все</option>
                     </select>
@@ -224,17 +224,31 @@
                 spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
                 document.getElementById('name').innerText = response.data.result[0].name;
+
+                const referencesLink = document.getElementById("referencesLink");
+                const ticketsLink = document.getElementById("ticketsLink");
+                const usersLink = document.getElementById("usersLink");
+
                 switch (response.data.result[0].role) {
                     case 'администратор':
                         document.getElementById('role').innerText = 'администратора';
                         break;
                     case 'исполнитель':
+                        document.location.href = '/tickets';
+                        usersLink.classList.add('d-none');
+                        referencesLink.classList.add('d-none');
                         document.getElementById('role').innerText = 'исполнителя';
                         break;
                     case 'оператор':
+                        document.location.href = '/tickets';
+                        referencesLink.classList.add('d-none');
+                        usersLink.classList.add('d-none');
                         document.getElementById('role').innerText = 'оператора';
                         break;
                     case 'пользователь':
+                        document.location.href = '/tickets';
+                        referencesLink.classList.add('d-none');
+                        usersLink.classList.add('d-none');
                         document.getElementById('role').innerText = 'пользователя';
                         break;
                 }

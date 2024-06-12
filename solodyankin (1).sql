@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 12 2024 г., 01:45
+-- Время создания: Июн 12 2024 г., 21:00
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.3.26
 
@@ -60,7 +60,9 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`) VALUES
-(1, 'ИТ Отдел');
+(1, 'ИТ Отдел'),
+(2, 'Отдел Бухгалтерии и Учета'),
+(3, 'Отдел маркетинга');
 
 -- --------------------------------------------------------
 
@@ -76,6 +78,29 @@ CREATE TABLE `lifecycles` (
   `checking` datetime DEFAULT NULL COMMENT 'Дата проверки',
   `closed` datetime DEFAULT NULL COMMENT 'Дата закрытия'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='«Жизненный цикл заявки»';
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `post`
+--
+
+CREATE TABLE `post` (
+  `id` int NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `post`
+--
+
+INSERT INTO `post` (`id`, `name`) VALUES
+(1, 'Администратор'),
+(2, 'Руководитель отдела'),
+(3, 'Бухгалтер'),
+(4, 'Специалист ОИТ'),
+(6, 'Преподаватель'),
+(7, 'Старший преподаватель ');
 
 -- --------------------------------------------------------
 
@@ -114,7 +139,10 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-(1, 'суперадминистратор');
+(1, 'администратор'),
+(2, 'исполнитель'),
+(3, 'оператор'),
+(4, 'пользователь');
 
 -- --------------------------------------------------------
 
@@ -135,7 +163,9 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `userId`, `session`, `created_at`) VALUES
 (50, 1, 'd254e747-e4cb-4161-8567-f6e797851c71', '2024-06-12 02:22:49'),
-(53, 1, 'fc9c816a-c455-4b76-abec-3177c053e08f', '2024-06-12 02:28:33');
+(53, 1, 'fc9c816a-c455-4b76-abec-3177c053e08f', '2024-06-12 02:28:33'),
+(55, 2, 'f0f26199-f6be-4dc9-819b-b234d23e1926', '2024-06-12 20:37:19'),
+(59, 1, '17881b92-d519-45d0-b1f1-6e365249b6b1', '2024-06-12 21:59:11');
 
 -- --------------------------------------------------------
 
@@ -149,15 +179,18 @@ CREATE TABLE `users` (
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `departmentId` int NOT NULL COMMENT 'Отдел, где работает пользователь',
-  `roleId` int NOT NULL COMMENT 'Роль пользователя в системе'
+  `roleId` int NOT NULL COMMENT 'Роль пользователя в системе',
+  `postId` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `login`, `password`, `departmentId`, `roleId`) VALUES
-(1, 'Солодянкин Юрий Александрович', 'admin', 'admin', 1, 1);
+INSERT INTO `users` (`id`, `name`, `login`, `password`, `departmentId`, `roleId`, `postId`) VALUES
+(1, 'Солодянкин Юрий Александрович', 'admin', 'admin', 1, 1, 1),
+(2, 'Иванов Иван Иванович', 'ivan', 'ivan1234', 1, 2, 2),
+(6, 'ghj', 'ghjg', 'ghjghjg', 3, 4, 7);
 
 --
 -- Индексы сохранённых таблиц
@@ -186,6 +219,12 @@ ALTER TABLE `departments`
 -- Индексы таблицы `lifecycles`
 --
 ALTER TABLE `lifecycles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `post`
+--
+ALTER TABLE `post`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -241,13 +280,19 @@ ALTER TABLE `categorys`
 -- AUTO_INCREMENT для таблицы `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `lifecycles`
 --
 ALTER TABLE `lifecycles`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `requests`
@@ -259,19 +304,19 @@ ALTER TABLE `requests`
 -- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
