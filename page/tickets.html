@@ -398,7 +398,7 @@
                                 tickets.data.result.forEach((element, index) => {
                                     if (element.status == "завершена" || element
                                         .status ==
-                                        "отклонена" || element.artist == null)
+                                        "отклонена" || element.artist !== null)
                                         return;
                                     counter3.innerText = total;
                                     ticketsDispatcher.innerHTML +=
