@@ -240,7 +240,10 @@ app.delete("/api/users/delete", (req, res) => {
   pool.getConnection((err, connection) => {
     if (connection) {
       connection.query(
-        `DELETE t1, t2 FROM users t1 JOIN sessions t2 ON t1.id = t2.userId WHERE t1.id = ${req.query.id}`,
+        `DELETE t1, t2 
+        FROM users t1 
+        LEFT JOIN sessions t2 ON t1.id = t2.userId 
+        WHERE t1.id =  ${req.query.id}`,
         (error, result) => {
           if (error) {
             res.status(500).json({ error, message: error.sqlMessage });
