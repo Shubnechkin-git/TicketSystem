@@ -97,7 +97,9 @@
                             <label for="validationTextarea" class="form-label fw-bold">Приоритет</label>
                             <select class="form-select" id="validationTextarea"
                                 placeholder="Обязательный пример текстового поля" required>
-                                <option value="1">Отдел Бухгалтерии и Учета</option>
+                                <option value="Низкий">Низкий</option>
+                                <option value="Средний">Средний</option>
+                                <option value="Высокий">Высокий</option>
                             </select>
                             <div class="invalid-feedback">
                                 Пожалуйста, введите сообщение в текстовое поле.
@@ -105,35 +107,36 @@
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Кабинет</label>
-                            <input class="form-control" id="validationTextarea" placeholder="202" required />
+                            <select class="form-control" id="activ" placeholder="202" required></select>
                             <div class="invalid-feedback">
                                 Пожалуйста, введите сообщение в текстовое поле.
                             </div>
                         </div>
                         <div class="mb-2">
                             <label for="validationTextarea" class="form-label fw-bold">Категория</label>
-                            <select class="form-select" id="validationTextarea" placeholder="1С бухгалтерия" required>
+                            <select class="form-select" id="categorys" placeholder="1С бухгалтерия" required>
                                 <option value="1">Отдел Бухгалтерии и Учета</option>
                             </select>
                             <div class="invalid-feedback">
                                 Пожалуйста, введите сообщение в текстовое поле.
                             </div>
                         </div>
+                        <div class="mb-2">
+                            <label for="validationTextarea" class="form-label fw-bold">Файл с ошибкой</label>
+                            <input class="form-control" id="validationTextarea" type="file" />
+                        </div>
+                        <div class="mb-2">
+                            <label for="validationTextarea" class="form-label fw-bold">Комментарий</label>
+                            <textarea class=" form-control" id="validationTextarea"
+                                placeholder="Просьба решить в кратчайшие сроки"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary text-white mt-3">
+                            Добавить
+                        </button>
                     </form>
-                    <div class="mb-2">
-                        <label for="validationTextarea" class="form-label fw-bold">Файл с ошибкой</label>
-                        <input class="form-control" id="validationTextarea" type="file" />
-                    </div>
-                    <div class="mb-2">
-                        <label for="validationTextarea" class="form-label fw-bold">Комментарий</label>
-                        <textarea class=" form-control" id="validationTextarea"
-                            placeholder="Просьба решить в кратчайшие сроки"></textarea>
-                    </div>
-                    <button class="btn btn-primary text-white mt-3">
-                        Добавить
-                    </button>
                 </div>
             </div>
+            <span class="mt-2 ms-3 me-3" id="message"></span>
         </section>
     </div>
     <div class="vh-100 d-flex justify-content-center align-items-center">
@@ -171,6 +174,51 @@
                 const referencesLink = document.getElementById("referencesLink");
                 const ticketsLink = document.getElementById("ticketsLink");
                 const usersLink = document.getElementById("usersLink");
+                const userId = response.data.result[0].id;
+                const categorysSelect = document.getElementById("categorys");
+                const activSelect = document.getElementById("activ");
+                const message = document.getElementById("message");
+
+                axios.get("/api/tickets/parameters").then((response) => {
+                    response.data.categorys.forEach((element) => {
+                        console.log(element);
+                        categorysSelect.innerHTML +=
+                            `<option value="${element.id}">${element.name}</option>`;
+                    });
+                    response.data.activ.forEach((element) => {
+                        console.log(element);
+                        activSelect.innerHTML +=
+                            `<option value="${element.id}">${element.cabNumber}</option>`;
+                    });
+                    addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        axios.post("/api/tickets/create", {
+                            userId: userId,
+                            name: e.target[0].value,
+                            description: e.target[1].value,
+                            priority: e.target[2].value,
+                            activId: e.target[3].value,
+                            categoryId: e.target[4].value,
+                            file: e.target[5].value,
+                            comment: e.target[6].value,
+                        }).then((created) => {
+                            message.classList.remove('text-danger');
+                            message.classList.add('text-success');
+                            message.innerText = created.data.message;
+                            console.log(created);
+                        }).catch((err) => {
+                            message.classList.remove('text-success');
+                            message.classList.add('text-danger');
+                            message.innerText = err.response.data.message;
+                            console.log(err);
+                        });
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                    message.classList.remove('text-success');
+                    message.classList.add('text-danger');
+                    message.innerText = err.response.data.message;
+                });
 
                 switch (response.data.result[0].role) {
                     case 'администратор':

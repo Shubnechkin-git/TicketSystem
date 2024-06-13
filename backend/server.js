@@ -36,7 +36,7 @@ app.get("/api/checkSession", (req, res) => {
     pool.getConnection((err, connection) => {
       if (connection) {
         connection.query(
-          `SELECT users.name, roles.name AS "role" FROM users 
+          `SELECT users.id, users.name, roles.name AS "role" FROM users 
           JOIN sessions ON users.id = sessions.userId
           JOIN roles ON roles.id = users.roleId WHERE sessions.session = "${session}"`,
           (error, result) => {
@@ -252,6 +252,112 @@ app.delete("/api/users/delete", (req, res) => {
               .status(200)
               .json({ result, message: "Пользователь успешно удален!" });
           }
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+    }
+  });
+});
+
+app.get("/api/tickets/parameters", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(`SELECT * FROM activ`, (error, result) => {
+        if (error) {
+          res.status(500).json({ error, message: error.sqlMessage });
+        } else if (result) {
+          result.length > 0
+            ? connection.query(
+                `SELECT * FROM categorys`,
+                (isError, categorys) => {
+                  if (isError)
+                    res
+                      .status(500)
+                      .json({ isError, message: isError.sqlMessage });
+                  else if (categorys) {
+                    categorys.length > 0
+                      ? res.status(200).json({
+                          activ: result,
+                          categorys,
+                          message: "Кабинеты и категории найдены!",
+                        })
+                      : res.status(400).json({
+                          activ: result,
+                          categorys,
+                          message: "Кабинеты найдены, но категории пусты!",
+                        });
+                  }
+                }
+              )
+            : res.status(400).json({ result, message: "Кабинеты не найдены!" });
+        }
+      });
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+    }
+  });
+});
+
+app.post("/api/tickets/create", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        "INSERT INTO `lifecycles` (`id`, `opened`, `distributed`, `proccesing`, `checking`, `closed`) VALUES (NULL, CURRENT_TIMESTAMP, NULL, NULL, NULL, NULL);",
+        (error, cycles) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (cycles) {
+            cycles.insertId > 0
+              ? connection.query(
+                  `INSERT INTO requests (name, description, comment, priority, activId, file, categoryId, userId, lifecycleId)  
+                  VALUES ("${req.body.name}","${req.body.description}","${req.body.comment}","${req.body.priority}","${req.body.activId}",
+                  "${req.body.file}", "${req.body.categoryId}", "${req.body.userId}", "${cycles.insertId}")`,
+                  (isError, created) => {
+                    if (isError) {
+                      connection.query(
+                        `DELETE FROM lifecycles WHERE id = ${cycles.insertId}`
+                      );
+                      res
+                        .status(500)
+                        .json({ isError, message: isError.sqlMessage });
+                    } else if (created)
+                      res
+                        .status(200)
+                        .json({ created, message: "Заявка успешно создана!" });
+                  }
+                )
+              : res.status(500).json({
+                  cycles,
+                  message: "Не удалось создать жизненный цикл!",
+                });
+          }
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+    }
+  });
+});
+
+app.get("/api/tickets", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `SELECT requests.name, requests.priority, requests.status, requests.comment, requests.id, lifecycles.*, users.name AS "fio" FROM requests 
+        JOIN lifecycles ON requests.lifecycleId = lifecycles.id
+        JOIN users ON requests.userId = users.id`,
+        (error, result) => {
+          if (result) {
+            result.length > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Заявки успешно получены!" })
+              : res.status(400).json({ result, message: "Заявок нет!" });
+          } else if (error)
+            res.status(500).json({ error, message: error.sqlMessage });
         }
       );
       connection.release();
