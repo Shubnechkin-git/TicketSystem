@@ -66,15 +66,41 @@
                 </div>
             </div>
         </nav>
-
-        <section class="ms-3 me-3 mt-3">
+        <section id="artistMenu" class="ms-3 me-3 mt-3 d-none">
+            <div class="row">
+                <h2>Меню исполнителя</h2>
+            </div>
+            <div class="row">
+                <h2>Изменить статус заявки</h2>
+            </div>
+            <div class="row"><span>Всего заявок: <span id="counter2">0</span></span></div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Приоритет</th>
+                        <th scope="col">Файл с ошибкой</th>
+                        <th scope="col">Время создания</th>
+                        <th scope="col">Инициатор заявки</th>
+                        <th scope="col">Наименование инцидента</th>
+                        <th scope="col">Описание заявки</th>
+                        <th scope="col">Новый статус</th>
+                        <th scope="col">Действие</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketsEditStatus">
+                </tbody>
+            </table>
+        </section>
+        <section id="dispatcherMenu" class="ms-3 me-3 mt-3 d-none">
             <div class="row">
                 <h2>Меню диспетчера</h2>
             </div>
             <div class="row">
                 <h2>Список заявок</h2>
             </div>
-            <div class="row"><span>Всего нераспределенных заявок:<span>2</span></span></div>
+            <div class="row"><span>Всего нераспределенных заявок: <span id="counter3">0</span></span></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -90,7 +116,7 @@
                         <th scope="col">Действие</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ticketsDispatcher">
                     <tr>
                         <td>
                             1
@@ -199,14 +225,14 @@
                 </tbody>
             </table>
         </section>
-        <section class="ms-3 me-3 mt-3">
+        <section id="usersMenu" class="ms-3 me-3 mt-3 d-none">
             <div class="row">
-                <h2>Меню исполнителя</h2>
+                <h2 class="col-12">Приветствую, <span id="name"></span></h2>
             </div>
             <div class="row">
-                <h2>Изменить статус заявки</h2>
+                <h2>Список заявок</h2>
             </div>
-            <div class="row"><span>Всего заявок:<span>2</span></span></div>
+            <div class="row"><span>Всего заявок: <span id="counter1">0</span></span></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -215,173 +241,12 @@
                         <th scope="col">Приоритет</th>
                         <th scope="col">Файл с ошибкой</th>
                         <th scope="col">Время создания</th>
-                        <th scope="col">Инициатор заявки</th>
                         <th scope="col">Наименование инцидента</th>
                         <th scope="col">Описание заявки</th>
-                        <th scope="col">Новый статус</th>
-                        <th scope="col">Действие</th>
+                        <th scope="col">Исполнитель</th>
                     </tr>
                 </thead>
-                <tbody id="ticketsEditStatus">
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="color: #e6af20;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: pointer; color:#c0c0be"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-archive" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                            </svg></td>
-                        <td>15.01.2020 00:03:27</td>
-                        <td>Филатов Олег Васильевич</td>
-                        <td>Ошибка</td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg></td>
-                        <td><select class="form-select">
-                                <option value="" selected disabled hidden>Выберете статус</option>
-                                <option value="waiting">В ожидание</option>
-                                <option value="processing">В обработке</option>
-                                <option value="rejected">Отклонена</option>
-                                <option value="resolve">Решена</option>
-                            </select></td>
-                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td> <svg data-bs-toggle="tooltip" style="color: #c0c0be;" data-bs-title="Задача в обработке"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-archive" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                            </svg></td>
-                        <td>15.01.2020 00:03:27</td>
-                        <td>Филатов Олег Васильевич</td>
-                        <td>Ошибка</td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg></td>
-                        <td><select class="form-select">
-                                <option value="" selected disabled hidden>Выберете статус</option>
-                                <option value="waiting">В ожидание</option>
-                                <option value="processing">В обработке</option>
-                                <option value="rejected">Отклонена</option>
-                                <option value="resolve">Решена</option>
-                            </select></td>
-                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="color: #ff501b;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-ban-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
-                            </svg>
-                        </td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: pointer; color:#ff6630"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-archive" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                            </svg></td>
-                        <td>15.01.2020 00:03:27</td>
-                        <td>Филатов Олег Васильевич</td>
-                        <td>Ошибка</td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg></td>
-                        <td><select class="form-select">
-                                <option value="" selected disabled hidden>Выберете статус</option>
-                                <option value="waiting">В ожидание</option>
-                                <option value="processing">В обработке</option>
-                                <option value="rejected">Отклонена</option>
-                                <option value="resolve">Решена</option>
-                            </select></td>
-                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td> <svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="color:#90d81a"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                <circle cx="8" cy="8" r="8" />
-                            </svg></td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какой-то файл" style="cursor: pointer;"
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-archive" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                            </svg></td>
-                        <td>15.01.2020 00:03:27</td>
-                        <td>Филатов Олег Васильевич</td>
-                        <td>Ошибка</td>
-                        <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
-                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                            </svg></td>
-                        <td><select class="form-select">
-                                <option value="" selected disabled hidden>Выберете статус</option>
-                                <option value="waiting">В ожидание</option>
-                                <option value="processing">В обработке</option>
-                                <option value="rejected">Отклонена</option>
-                                <option value="resolve">Решена</option>
-                            </select></td>
-                        <td><span class="text-info" style="cursor: pointer;">Изменить статус</span></td>
-                    </tr>
+                <tbody id="ticketsUser">
                 </tbody>
             </table>
         </section>
@@ -422,15 +287,36 @@
                 const usersLink = document.getElementById("usersLink");
 
                 const ticketsEditStatus = document.getElementById("ticketsEditStatus");
+                const counter1 = document.getElementById("counter1");
+                const counter2 = document.getElementById("counter2");
+                const counter3 = document.getElementById("counter3");
 
+                const dispatcherMenu = document.getElementById("dispatcherMenu");
+                const artistMenu = document.getElementById("artistMenu");
+
+                const usersMenu = document.getElementById("usersMenu");
+                const ticketsUser = document.getElementById("ticketsUser");
+
+                document.getElementById("name").innerText = response.data.result[0].name;
+
+                ticketsDispatcher.innerHTML = "";
                 ticketsEditStatus.innerHTML = "";
 
-                axios.get("/api/tickets").then((tickets) => {
-                    console.log(tickets);
-                    tickets.data.result.forEach((element, index) => {
-                        ticketsEditStatus.innerHTML +=
-                            `<tr id="${element.id}">
-                                <td>${index}</td>
+                switch (response.data.result[0].role) {
+                    case 'администратор':
+                        dispatcherMenu.classList.remove('d-none');
+                        artistMenu.classList.remove('d-none');
+                        usersMenu.classList.remove('d-none');
+                        axios.get("/api/tickets").then((tickets) => {
+                            console.log(tickets);
+                            counter2.innerText = tickets.data.result.length;
+                            tickets.data.result.forEach((element, index) => {
+                                if (element.status == "завершена" || element
+                                    .status ==
+                                    "отклонена") return;
+                                ticketsEditStatus.innerHTML +=
+                                    `<tr id="${element.id}">
+                                <td>${index+1}</td>
                                 <td>${element.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-hourglass-split" viewBox="0 0 16 16">
@@ -490,30 +376,404 @@
                                 </td>
                                 <td><span class="text-info" style="cursor: pointer;">Сменить статус</span></td>
                             </tr>`;
-                    });
-                }).catch((error) => {
-                    ticketsEditStatus.innerHTML = error.response.data.message;
-                });
+                            });
 
-                switch (response.data.result[0].role) {
-                    case 'администратор':
+                        }).catch((error) => {
+                            ticketsEditStatus.innerHTML = error.response.data.message;
+                        });
+                        axios.get("/api/tickets/artists").then(artist => {
+                            let total = 1;
+                            let artistSelect =
+                                `<select class="form-select" selected="${artist.id}">
+                                    <option value="${artist.id}" selected disabled hidden>Выбрать исполнителя</option>`;
+                            artist.data.result.forEach(artist => {
+                                artistSelect +=
+                                    `<option value="${artist.id}">${artist.name}</option>`;
+                            });
+                            artistSelect += `</select>`;
+                            axios.get("/api/tickets").then((tickets) => {
+                                console.log(tickets);
+                                tickets.data.result.forEach((element, index) => {
+                                    if (element.status == "завершена" || element
+                                        .status ==
+                                        "отклонена") return;
+                                    if (element.fio !== response.data.result[0]
+                                        .name) return;
+                                    counter3.innerText = total;
+                                    ticketsDispatcher.innerHTML +=
+                                        `<tr id="${element.id}">
+                                <td>${total}</td>
+                                <td>${element.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg>`: element.status == "обработка"? `<svg data-bs-toggle="tooltip" style="cursor:help; color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg>`: element.status == "завершена"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="cursor: help; color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="cursor:help; color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>`}</td>
+                                <td>
+                                    ${element.priority == "Высокий"? `<svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: element.priority == "Средний"? `<svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: help; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`}
+                                </td>
+                                <td>Тут должен быть файл</td>
+                                <td>${element.opened}</td>
+                                <td>${element.fio}</td>
+                                <td>${element.name}</td>
+                                <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                                <td>
+                                    ${artistSelect}
+                                </td>
+                                <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
+                            </tr>`;
+                                    total++;
+                                });
+                            }).catch((error) => {
+                                ticketsDispatcher.innerHTML = error.response.data.message;
+                            });
+                        }).catch((error) => {
+                            ticketsDispatcher.innerHTML = error.response.data.message;
+                        });
+                        axios.get("/api/tickets/user", {
+                            params: {
+                                userId: response.data.result[0].id
+                            }
+                        }).then((userTick) => {
+                            counter1.innerText = userTick.data.result.length;
+                            ticketsUser.innerHTML = "";
+                            userTick.data.result.forEach((user, index) => {
+                                console.log(user);
+                                ticketsUser.innerHTML +=
+                                    `<tr id="${user.id}">
+                                        <td>${index+1}</td>
+                                        <td>${user.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg>`: user.status == "обработка"? `<svg data-bs-toggle="tooltip" style="cursor:help; color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg>`: user.status == "завершена"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="cursor: help; color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="cursor:help; color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>`}</td>
+                                <td>
+                                    ${user.priority == "Высокий"? `<svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: user.priority == "Средний"? `<svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: help; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`}
+                                </td>
+                                <td>Тут должен быть файл</td>
+                                <td>${user.opened}</td>
+                                <td>${user.name}</td>
+                                <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                                    <td>${user.fio !== null? user.fio: "Не назначен!"}</td>
+                                    </tr>`;
+                            });
+                        }).catch((error) => {
+                            ticketsUser.innerHTML = error.response.data.message;
+                        });
+
                         break;
                     case 'исполнитель':
+                        axios.get("/api/tickets").then((tickets) => {
+                            console.log(tickets);
+                            let total = 1;
+                            tickets.data.result.forEach((element, index) => {
+                                counter2.innerText = total;
+                                if (element.status == "завершена" || element.status ==
+                                    "отклонена") return;
+                                if (element.fio !== response.data.result[0]
+                                    .name) return;
+                                ticketsEditStatus.innerHTML +=
+                                    `<tr id="${element.id}">
+                                <td>${total}</td>
+                                <td>${element.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg>`: element.status == "обработка"? `<svg data-bs-toggle="tooltip" style="cursor:help; color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg>`: element.status == "завершена"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="cursor: help; color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="cursor:help; color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>`}</td>
+                                <td>
+                                    ${element.priority == "Высокий"? `<svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: element.priority == "Средний"? `<svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: help; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`}
+                                </td>
+                                <td>Тут должен быть файл</td>
+                                <td>${element.opened}</td>
+                                <td>${element.fio}</td>
+                                <td>${element.name}</td>
+                                <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                                <td>
+                                    <select class="form-select" selected="${element.status}">
+                                        <option value="${element.status}" selected disabled hidden>Выбрать статус</option>
+                                        <option value="ожидание">Ожидание</option>
+                                        <option value="обработка">Обработка</option>
+                                        <option value="завершена">Завершена</option>
+                                        <option value="закрыта">Закрыта</option>
+                                    </select>    
+                                </td>
+                                <td><span class="text-info" style="cursor: pointer;">Сменить статус</span></td>
+                            </tr>`;
+                                total++;
+                            });
+
+                        }).catch((error) => {
+                            ticketsEditStatus.innerHTML = error.response.data.message;
+                        });
+                        artistMenu.classList.remove('d-none');
                         usersLink.classList.add('d-none');
                         referencesLink.classList.add('d-none');
                         break;
                     case 'оператор':
+                        axios.get("/api/tickets/artists").then(artist => {
+                            let total = 1;
+                            let artistSelect =
+                                `<select class="form-select" selected="${artist.id}">
+                                    <option value="${artist.id}" selected disabled hidden>Выбрать исполнителя</option>`;
+                            artist.data.result.forEach(artist => {
+                                artistSelect +=
+                                    `<option value="${artist.id}">${artist.name}</option>`;
+                            });
+                            artistSelect += `</select>`;
+                            axios.get("/api/tickets").then((tickets) => {
+
+                                console.log(tickets);
+                                tickets.data.result.forEach((element, index) => {
+                                    if (element.status == "завершена" || element
+                                        .status ==
+                                        "отклонена") return;
+                                    counter3.innerText = total;
+                                    ticketsDispatcher.innerHTML +=
+                                        `<tr id="${element.id}">
+                                <td>${total}</td>
+                                <td>${element.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg>`: element.status == "обработка"? `<svg data-bs-toggle="tooltip" style="cursor:help; color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg>`: element.status == "завершена"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="cursor: help; color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="cursor:help; color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>`}</td>
+                                <td>
+                                    ${element.priority == "Высокий"? `<svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: element.priority == "Средний"? `<svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: help; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`}
+                                </td>
+                                <td>Тут должен быть файл</td>
+                                <td>${element.opened}</td>
+                                <td>${element.fio}</td>
+                                <td>${element.name}</td>
+                                <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                                <td>
+                                    ${artistSelect}
+                                </td>
+                                <td><span class="text-info" style="cursor: pointer;">Назначить</span></td>
+                            </tr>`;
+                                    total++;
+                                });
+                            }).catch((error) => {
+                                ticketsDispatcher.innerHTML = error.response.data.message;
+                            });
+                        }).catch((error) => {
+                            ticketsDispatcher.innerHTML = error.response.data.message;
+                        });
+                        dispatcherMenu.classList.remove('d-none');
                         usersLink.classList.add('d-none');
                         referencesLink.classList.add('d-none');
                         break;
                     case 'пользователь':
+                        axios.get("/api/tickets/user", {
+                            params: {
+                                userId: response.data.result[0].id
+                            }
+                        }).then((userTick) => {
+                            counter1.innerText = userTick.data.result.length;
+                            ticketsUser.innerHTML = "";
+                            userTick.data.result.forEach((user, index) => {
+                                console.log(user);
+                                ticketsUser.innerHTML +=
+                                    `<tr id="${user.id}">
+                                        <td>${index+1}</td>
+                                        <td>${user.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                            </svg>`: user.status == "обработка"? `<svg data-bs-toggle="tooltip" style="cursor:help; color: #c0c0be;" data-bs-title="Задача в обработке"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-wrench-adjustable-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.705 8.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27.596-.894Z" />
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm-6.202-4.751 1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.49 4.49 0 0 1-1.592-.29L4.747 14.2a7.031 7.031 0 0 1-2.949-2.951ZM12.496 8a4.491 4.491 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11c.027.2.04.403.04.61Z" />
+                            </svg>`: user.status == "завершена"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача решена" style="cursor: help; color:#90d81a"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Задача отклонена" style="cursor:help; color: #ff501b;"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-ban-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M2.71 12.584q.328.378.706.707l9.875-9.875a7 7 0 0 0-.707-.707l-9.875 9.875Z" />
+                            </svg>`}</td>
+                                <td>
+                                    ${user.priority == "Высокий"? `<svg data-bs-toggle="tooltip" data-bs-title="Высокий" style="cursor: help; color:#ff6630"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: user.priority == "Средний"? `<svg data-bs-toggle="tooltip" data-bs-title="Средний" style="cursor: help; color:#ffb245"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`: `<svg data-bs-toggle="tooltip" data-bs-title="Низкий" style="cursor: help; color:#c0c0be"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>`}
+                                </td>
+                                <td>Тут должен быть файл</td>
+                                <td>${user.opened}</td>
+                                <td>${user.name}</td>
+                                <td><svg data-bs-toggle="tooltip" data-bs-title="Какое-то описание"
+                                style="cursor: pointer; color: #2983d1;" xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                            </svg></td>
+                                    <td>${user.fio !== null? user.fio: "Не назначен!"}</td>
+                                    </tr>`;
+                            });
+                        }).catch((error) => {
+                            ticketsUser.innerHTML = error.response.data.message;
+                        });
                         usersLink.classList.add('d-none');
                         referencesLink.classList.add('d-none');
+                        usersMenu.classList.remove('d-none');
                         break;
                 }
             }).catch((error) => {
                 document.location.href = '/';
-                // spinner.classList.toggle('d-none');
+                spinner.classList.toggle('d-none');
                 content.classList.toggle('d-none');
                 content.classList.toggle('d-none');
                 console.log(error);

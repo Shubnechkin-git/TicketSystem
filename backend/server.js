@@ -346,9 +346,10 @@ app.get("/api/tickets", (req, res) => {
   pool.getConnection((err, connection) => {
     if (connection) {
       connection.query(
-        `SELECT requests.name, requests.priority, requests.status, requests.comment, requests.id, lifecycles.*, users.name AS "fio" FROM requests 
+        `SELECT requests.name, requests.priority, requests.status, requests.comment, requests.id, lifecycles.opened, lifecycles.distributed, 
+        lifecycles.proccesing, lifecycles.checking, lifecycles.closed, users.name AS "fio" FROM requests 
         JOIN lifecycles ON requests.lifecycleId = lifecycles.id
-        JOIN users ON requests.userId = users.id`,
+        JOIN users ON requests.userId = users.id ORDER BY requests.id DESC `,
         (error, result) => {
           if (result) {
             result.length > 0
@@ -364,6 +365,56 @@ app.get("/api/tickets", (req, res) => {
     } else if (err) {
       res.status(500).json({ err, message: err.message });
     }
+  });
+});
+
+app.get("/api/tickets/user", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `SELECT requests.name, requests.priority, requests.status, users.name AS "fio", requests.id, 
+        lifecycles.opened, lifecycles.distributed, 
+        lifecycles.proccesing, lifecycles.checking, lifecycles.closed FROM requests 
+        LEFT JOIN users ON users.id = requests.xecutorId
+        JOIN lifecycles ON requests.lifecycleId = lifecycles.id
+        WHERE requests.userId = ${req.query.userId} ORDER BY requests.id DESC`,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result)
+            result.length > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Тикеты пользователя получены!" })
+              : res.status(400).json({ result, message: "Тикетов нет!" });
+        }
+      );
+      connection.release();
+    } else if (err) {
+      res.status(500).json({ err, message: err.message });
+    }
+  });
+});
+
+app.get("/api/tickets/artists", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `SELECT users.id, users.name FROM users JOIN roles ON users.roleId = roles.id WHERE roles.id = 2`,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result) {
+            result.length > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Исполнители найдены!" })
+              : res
+                  .status(400)
+                  .json({ result, message: "Исполнители не найдены" });
+          }
+        }
+      );
+      connection.release();
+    } else if (err) res.status(500).json({ err, message: err.message });
   });
 });
 
