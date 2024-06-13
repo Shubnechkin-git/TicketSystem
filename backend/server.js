@@ -346,7 +346,7 @@ app.get("/api/tickets", (req, res) => {
   pool.getConnection((err, connection) => {
     if (connection) {
       connection.query(
-        `SELECT requests.name, requests.priority, requests.status, requests.comment, requests.id, lifecycles.opened, lifecycles.distributed, 
+        `SELECT requests.name, requests.xecutorId AS "artist", requests.priority, requests.status, requests.comment, requests.id, lifecycles.opened, lifecycles.distributed, 
         lifecycles.proccesing, lifecycles.checking, lifecycles.closed, users.name AS "fio" FROM requests 
         JOIN lifecycles ON requests.lifecycleId = lifecycles.id
         JOIN users ON requests.userId = users.id ORDER BY requests.id DESC `,

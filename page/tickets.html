@@ -308,15 +308,16 @@
                         artistMenu.classList.remove('d-none');
                         usersMenu.classList.remove('d-none');
                         axios.get("/api/tickets").then((tickets) => {
-                            console.log(tickets);
-                            counter2.innerText = tickets.data.result.length;
+                            console.log(tickets)
+                            let total = 1;
                             tickets.data.result.forEach((element, index) => {
                                 if (element.status == "завершена" || element
                                     .status ==
                                     "отклонена") return;
+                                counter2.innerText = total;
                                 ticketsEditStatus.innerHTML +=
                                     `<tr id="${element.id}">
-                                <td>${index+1}</td>
+                                <td>${total}</td>
                                 <td>${element.status == "ожидание"? `<svg data-bs-toggle="tooltip" data-bs-title="Задача в ожидание" style="cursor:help; color: #e6af20;"
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-hourglass-split" viewBox="0 0 16 16">
@@ -376,6 +377,7 @@
                                 </td>
                                 <td><span class="text-info" style="cursor: pointer;">Сменить статус</span></td>
                             </tr>`;
+                                total++;
                             });
 
                         }).catch((error) => {
@@ -396,9 +398,8 @@
                                 tickets.data.result.forEach((element, index) => {
                                     if (element.status == "завершена" || element
                                         .status ==
-                                        "отклонена") return;
-                                    if (element.fio !== response.data.result[0]
-                                        .name) return;
+                                        "отклонена" || element.artist == null)
+                                        return;
                                     counter3.innerText = total;
                                     ticketsDispatcher.innerHTML +=
                                         `<tr id="${element.id}">
