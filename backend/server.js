@@ -6,6 +6,7 @@ const mysql2 = require("mysql2");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const uuid = require("uuid");
+const { connect } = require("net");
 
 const pool = mysql2.createPool(
   !process.env.MYSQL_ADDON_URI
@@ -418,7 +419,7 @@ app.get("/api/tickets/artists", (req, res) => {
   });
 });
 
-app.post("/api/tickets/artist/appoint", (req, res) => {
+app.put("/api/tickets/artist/appoint", (req, res) => {
   console.log(req.body);
   pool.getConnection((err, connection) => {
     if (connection) {
@@ -432,15 +433,53 @@ app.post("/api/tickets/artist/appoint", (req, res) => {
               ? res
                   .status(200)
                   .json({ result, message: "Успешно назначен исполнитель!" })
-              : res
-                  .status(400)
-                  .json({
-                    result,
-                    message: "Не удалось назначить исполнителя!",
-                  });
+              : res.status(400).json({
+                  result,
+                  message: "Не удалось назначить исполнителя!",
+                });
           }
         }
       );
+      connection.release();
+    } else if (err) res.status(500).json({ err, message: err.message });
+  });
+});
+
+app.put("/api/tickets/update/status", (req, res) => {
+  const status = req.body.newStatus;
+
+  // distributed, lifecycles.proccesing checking closed
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `UPDATE requests
+        JOIN lifecycles ON lifecycles.id = requests.lifecycleId
+        SET requests.status = '${status}'
+          ${
+            status !== "ожидание"
+              ? `, lifecycles.${
+                  status == "обработка"
+                    ? `proccesing = DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')`
+                    : status == "завершена"
+                    ? `distributed = DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')`
+                    : `closed = DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')`
+                }`
+              : ""
+          }
+        WHERE requests.id = '${req.body.id}'`,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result)
+            result.affectedRows > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Статус успешно обновлен!" })
+              : res
+                  .status(400)
+                  .json({ result, message: "Не удалось обновить статус!" });
+        }
+      );
+      connection.release();
     } else if (err) res.status(500).json({ err, message: err.message });
   });
 });
