@@ -308,6 +308,7 @@
                 const operatorTable = (k) => {
                     axios.get("/api/tickets").then((tickets) => {
                         let total = 1;
+                        let test = -1;
                         ticketsEditStatus.innerHTML = null;
                         tickets.data.result.forEach((element, index) => {
                             if (element.status == "завершена" || element
@@ -315,6 +316,7 @@
                                 "закрыта") return;
                             if (k == 1 && element.artist !== response.data.result[0]
                                 .id) return;
+                            test = index;
                             counter2.innerText = total;
                             ticketsEditStatus.innerHTML +=
                                 `<tr id="${element.id}">
@@ -376,6 +378,12 @@
                             total++;
                         });
 
+                        if (total == 0 || (total == 1 && test == -1)) {
+                            counter2.innerText = 0;
+                            ticketsEditStatus
+                                .innerHTML = "Пусто!";
+                        }
+
                         document.querySelectorAll(".changeStatusBtn").forEach((btn, index) => {
                             btn.addEventListener("click", (e) => {
                                 const id = e.target.attributes.id.value;
@@ -400,12 +408,14 @@
                                     ticketsEditStatus.innerHTML =
                                         notupdated
                                         .response.data.message;
+                                    counter2.innerText = 0;
                                     console.log(notupdated);
                                 });
                             })
                         });
 
                     }).catch((error) => {
+                        counter2.innerText = 0;
                         ticketsEditStatus.innerHTML = error.response.data.message;
                     });
                 }
@@ -529,6 +539,7 @@
                             });
                         }).catch((error) => {
                             console.log(1);
+                            counter3.innerText = 0;
                             ticketsDispatcher.innerHTML = error.response.data
                                 .message;
                         });
