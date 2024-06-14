@@ -346,7 +346,7 @@ app.get("/api/tickets", (req, res) => {
   pool.getConnection((err, connection) => {
     if (connection) {
       connection.query(
-        `SELECT requests.name, requests.xecutorId AS "artist", requests.priority, requests.status, requests.comment, requests.id, lifecycles.opened, lifecycles.distributed, 
+        `SELECT requests.name, requests.description, requests.xecutorId AS "artist", requests.priority, requests.status, requests.comment, requests.id, lifecycles.opened, lifecycles.distributed, 
         lifecycles.proccesing, lifecycles.checking, lifecycles.closed, users.name AS "fio" FROM requests 
         JOIN lifecycles ON requests.lifecycleId = lifecycles.id
         JOIN users ON requests.userId = users.id ORDER BY requests.id DESC `,
@@ -372,7 +372,7 @@ app.get("/api/tickets/user", (req, res) => {
   pool.getConnection((err, connection) => {
     if (connection) {
       connection.query(
-        `SELECT requests.name, requests.priority, requests.status, users.name AS "fio", requests.id, 
+        `SELECT requests.name,requests.description, requests.priority, requests.status, users.name AS "fio", requests.id, 
         lifecycles.opened, lifecycles.distributed, 
         lifecycles.proccesing, lifecycles.checking, lifecycles.closed FROM requests 
         LEFT JOIN users ON users.id = requests.xecutorId
@@ -414,6 +414,33 @@ app.get("/api/tickets/artists", (req, res) => {
         }
       );
       connection.release();
+    } else if (err) res.status(500).json({ err, message: err.message });
+  });
+});
+
+app.post("/api/tickets/artist/appoint", (req, res) => {
+  console.log(req.body);
+  pool.getConnection((err, connection) => {
+    if (connection) {
+      connection.query(
+        `UPDATE requests SET xecutorId= "${req.body.xecutorId}" WHERE id =${req.body.id} `,
+        (error, result) => {
+          if (error) res.status(500).json({ error, message: error.sqlMessage });
+          else if (result) {
+            console.log(result);
+            result.affectedRows > 0
+              ? res
+                  .status(200)
+                  .json({ result, message: "Успешно назначен исполнитель!" })
+              : res
+                  .status(400)
+                  .json({
+                    result,
+                    message: "Не удалось назначить исполнителя!",
+                  });
+          }
+        }
+      );
     } else if (err) res.status(500).json({ err, message: err.message });
   });
 });
